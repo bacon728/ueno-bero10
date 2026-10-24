@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>上野ベロ10 品書き</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Shippori+Mincho+B1:wght@500;700&family=Zen+Kaku+Gothic+New:wght@500;700&display=swap">
+<style>
+html{-webkit-text-size-adjust:100%}
+body{margin:0}
+img{max-width:100%}
+/* Layout: 暖簾の帯 → 千ベロの決まり札 → 絞り込みの木札 → 品書きカードの二段組。昭和の大衆酒場の壁の品書きがモチーフ */
+:root {
+  --bg: #E4DABE;
+  --card: #F2EAD2;
+  --ink: #2A1E17;
+  --mute: #6A5944;
+  --line: #C4B48A;
+  --red: #A92A20;
+  --brass: #8E6612;
+  --band: #1F2F52;
+  --band-fg: #F2EAD2;
+  --on-bg: #1F2F52;
+  --on-fg: #F2EAD2;
+  --ok: #2F6B3A;
+  --warn: #9A5A0A;
+  --off: #7A6A58;
+  --font-display: "Dela Gothic One", "Hiragino Maru Gothic ProN", "Yu Gothic", sans-serif;
+  --font-body: "Shippori Mincho B1", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  --font-util: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #16100D; --card: #231A15; --ink: #F0E4CC; --mute: #B3A189; --line: #43342A;
+    --red: #EE6A57; --brass: #E0B04A; --band: #101A33; --band-fg: #F0E4CC;
+    --on-bg: #E0B04A; --on-fg: #16100D; --ok: #7CC28A; --warn: #E8B15A; --off: #9A8A76;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #16100D; --card: #231A15; --ink: #F0E4CC; --mute: #B3A189; --line: #43342A;
+  --red: #EE6A57; --brass: #E0B04A; --band: #101A33; --band-fg: #F0E4CC;
+  --on-bg: #E0B04A; --on-fg: #16100D; --ok: #7CC28A; --warn: #E8B15A; --off: #9A8A76;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--font-body); font-size: 16px; line-height: 1.7;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 40px;
+}
+.wrap { max-width: 980px; margin: 0 auto; }
+header.band {
+  background: var(--band); color: var(--band-fg);
+  margin-inline: calc(-1 * max(16px, env(safe-area-inset-left, 0px)));
+  padding: 28px max(16px, env(safe-area-inset-left, 0px)) 22px;
+  position: relative;
+}
+header.band::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -12px; height: 12px;
+  background: repeating-linear-gradient(90deg, var(--red) 0 22px, var(--bg) 22px 44px);
+}
+header .inner { max-width: 980px; margin: 0 auto; }
+.kicker { font-family: var(--font-util); font-weight: 700; font-size: 13px; letter-spacing: .18em; opacity: .85; }
+h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(34px, 9vw, 56px); line-height: 1.15; margin: 6px 0 8px; text-wrap: balance; letter-spacing: .02em; }
+.lead { margin: 0; font-size: 15px; max-width: 36em; opacity: .92; }
+main { padding-top: 40px; display: grid; gap: 18px; }
+
+.rule { border: 2px solid var(--red); padding: 14px 16px; display: grid; gap: 10px; }
+.rule h2 { font-family: var(--font-display); font-weight: 400; font-size: 20px; margin: 0; color: var(--red); }
+.legend { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 8px 16px; font-family: var(--font-util); font-size: 13px; }
+.legend div { display: flex; gap: 8px; align-items: baseline; }
+.rule p { margin: 0; font-size: 14px; }
+
+.panel { border: 1.5px solid var(--ink); background: var(--card); padding: 16px; display: grid; gap: 14px; }
+.group { display: grid; gap: 6px; min-width: 0; }
+.glabel { font-family: var(--font-util); font-weight: 700; font-size: 12px; letter-spacing: .22em; color: var(--red); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  font-family: var(--font-util); font-weight: 700; font-size: 14px; line-height: 1.2;
+  color: var(--ink); background: transparent; border: 1.5px solid var(--ink); border-radius: 2px;
+  padding: 8px 12px; cursor: pointer; min-height: 38px;
+}
+.chip[aria-pressed="true"] { background: var(--on-bg); color: var(--on-fg); border-color: var(--on-bg); }
+.chip:focus-visible, .sel:focus-visible, a:focus-visible, .reset:focus-visible { outline: 3px solid var(--brass); outline-offset: 2px; }
+.row2 { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; justify-content: space-between; border-top: 1px dashed var(--line); padding-top: 12px; }
+.toggle { display: inline-flex; gap: 8px; align-items: center; font-family: var(--font-util); font-weight: 700; font-size: 14px; cursor: pointer; }
+.toggle input { width: 20px; height: 20px; accent-color: var(--red); }
+.sel { font-family: var(--font-util); font-weight: 700; font-size: 14px; color: var(--ink); background: var(--card); border: 1.5px solid var(--ink); border-radius: 2px; padding: 7px 10px; }
+.count { font-family: var(--font-util); font-size: 14px; color: var(--mute); margin: 0; }
+.count b { color: var(--red); font-size: 18px; }
+
+.list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 430px), 1fr)); gap: 14px; }
+.shop { background: var(--card); border: 1.5px solid var(--ink); padding: 14px 16px; display: grid; gap: 8px; min-width: 0; align-content: start; }
+.top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+.name { font-family: var(--font-display); font-weight: 400; font-size: 21px; line-height: 1.3; margin: 0; text-wrap: balance; min-width: 0; }
+.stars { text-align: right; flex: none; }
+.stars .s { color: var(--red); letter-spacing: .08em; font-size: 16px; line-height: 1; white-space: nowrap; }
+.stars .l { display: block; font-family: var(--font-util); font-size: 11px; color: var(--mute); letter-spacing: .1em; margin-top: 3px; }
+.meta { display: flex; flex-wrap: wrap; gap: 6px 8px; align-items: center; font-family: var(--font-util); font-size: 13px; }
+.tag { border: 1px solid var(--line); padding: 2px 8px; border-radius: 2px; color: var(--ink); }
+.tag.area { border-color: var(--brass); color: var(--brass); font-weight: 700; }
+.bero { font-weight: 700; padding: 2px 8px; border-radius: 2px; border: 1.5px solid var(--red); }
+.bero.b1 { background: var(--red); color: var(--card); }
+.bero.b2 { color: var(--red); }
+.bero.b3 { color: var(--warn); border-color: var(--warn); border-style: dashed; }
+.bero.b4 { color: var(--off); border-color: var(--off); border-style: dotted; }
+.plan { font-family: var(--font-util); font-size: 14px; border-left: 3px solid var(--red); padding: 4px 0 4px 10px; font-variant-numeric: tabular-nums; }
+.plan b { color: var(--red); }
+.note { margin: 0; font-size: 15px; }
+.warnline { margin: 0; font-family: var(--font-util); font-size: 13px; color: var(--warn); }
+.foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 6px 12px; font-family: var(--font-util); font-size: 13px; border-top: 1px dashed var(--line); padding-top: 8px; }
+.hours { font-variant-numeric: tabular-nums; color: var(--mute); }
+.conf { font-size: 12px; padding: 1px 6px; border: 1px solid var(--line); border-radius: 2px; color: var(--mute); }
+.conf.a { color: var(--ok); border-color: var(--ok); }
+.conf.c { color: var(--warn); border-color: var(--warn); }
+.status { font-weight: 700; }
+.status.open { color: var(--ok); } .status.soon { color: var(--warn); } .status.closed { color: var(--off); } .status.unk { color: var(--mute); font-weight: 500; }
+.map { color: var(--ink); font-weight: 700; }
+.empty { border: 1.5px dashed var(--ink); padding: 28px 16px; text-align: center; font-family: var(--font-util); }
+.reset { margin-top: 10px; font-family: var(--font-util); font-weight: 700; font-size: 14px; border: 1.5px solid var(--ink); background: transparent; color: var(--ink); padding: 8px 14px; border-radius: 2px; cursor: pointer; }
+.notes { border-top: 1.5px solid var(--ink); padding-top: 16px; font-family: var(--font-util); font-size: 13px; color: var(--mute); display: grid; gap: 6px; line-height: 1.7; }
+.notes b { color: var(--ink); }
+@media (min-width: 720px) { .panel { grid-template-columns: 1fr 1fr; } .group.wide { grid-column: 1 / -1; } .row2 { grid-column: 1 / -1; } }
+@media (prefers-reduced-motion: no-preference) { .chip { transition: background .15s, color .15s; } }
+</style>
+
+</head>
+<body>
+<header class="band">
+  <div class="inner">
+    <div class="kicker">2026.10.24 ベロ10 参加者向け</div>
+    <h1>上野ベロ10 品書き</h1>
+    <p class="lead">1軒千円で飲める、上野・御徒町・鶯谷の酒場30軒。気分に合わせて、場所・ジャンル・千ベロ度で絞り込めます。</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="rule" aria-label="千ベロ度の見方">
+    <h2>千ベロ度の見方</h2>
+    <div class="legend">
+      <div><span class="bero b1">セットあり</span><span>千円前後のせんべろセットがある</span></div>
+      <div><span class="bero b2">千円で組める</span><span>確認できた価格で、2杯＋1品が千円に収まる</span></div>
+      <div><span class="bero b3">工夫すれば</span><span>1杯＋1品なら収まる。または価格が未確認</span></div>
+      <div><span class="bero b4">千円超えがち</span><span>チャージや予算が高め。気分転換用</span></div>
+    </div>
+    <p>カードの「千円の例」は、ネットで見つかった価格での組み合わせ例です。価格は変わっていることがあるので、店頭で確認してください。</p>
+  </section>
+
+  <section class="panel" aria-label="絞り込み">
+    <div class="group">
+      <div class="glabel">場所</div>
+      <div class="chips" id="f-area"></div>
+    </div>
+    <div class="group">
+      <div class="glabel">千ベロ度</div>
+      <div class="chips" id="f-bero"></div>
+    </div>
+    <div class="group wide">
+      <div class="glabel">ジャンル</div>
+      <div class="chips" id="f-genre"></div>
+    </div>
+    <div class="row2">
+      <label class="toggle" for="f-open"><input type="checkbox" id="f-open"> いま開いている店だけ</label>
+      <label class="toggle" for="f-sort">並び順
+        <select class="sel" id="f-sort">
+          <option value="rec">おすすめ順</option>
+          <option value="bero">千ベロ度順</option>
+          <option value="close">閉店が早い順</option>
+        </select>
+      </label>
+    </div>
+  </section>
+
+  <p class="count" id="count" aria-live="polite"></p>
+  <section class="list" id="list"></section>
+
+  <section class="notes">
+    <div><b>情報の確かさ</b>　「情報新しめ」は2023年以降の情報で確認できたもの。「情報が古い」は2022年以前の情報が中心。「要確認」は情報が1件だけ、または情報が食い違っているものです。</div>
+    <div><b>営業時間</b>　土曜の時間です。情報が食い違う店は短い方の時間で表示しています。「営業中」の表示はその時間をもとにした目安です。</div>
+    <div><b>土曜の注意</b>　肉の大山の半額ハッピーアワーは平日のみの情報です。上野萬屋酒舗（角打ち）は土日祝休みのため載せていません。</div>
+    <div><b>おすすめ度</b>　千円で飲みやすいか、口コミの多さ、上野らしさで付けた目安です。</div>
+    <div>情報は2026/10/24にネット上の記事・店舗ページで確認。満席や臨時休業もあるので、入る前に店頭で確認してください。</div>
+  </section>
+</main>
+
+<script>
+/* bero: 1=セットあり 2=千円で組める 3=工夫すれば 4=千円超えがち
+   conf: a=情報新しめ b=情報が古い c=要確認
+   open/close: 土曜の分（0時=0, 24時=1440）。不明・食い違いは null */
+var SHOPS = [
+  { name: "天ぷら酒場 かっちゃん", q: "かっちゃん 上野 天ぷら 立ち飲み", area: "上野駅・アメ横", genres: ["立ち飲み","揚げ物"], bero: 1, rating: 5,
+    plan: "せんべろセット 1,200円（最大4杯＋天ぷら盛合せ か 本日の一品）",
+    note: "上野駅不忍口すぐの高架下。セットは1階の立ち飲み席だけ。千円を200円超えるが、4杯飲めるので一番お得。",
+    warn: "1,200円なので厳密な千ベロではない",
+    hours: "11:30〜21:30（情報が分かれる）", open: 690, close: 1290, conf: "c" },
+  { name: "魚草", q: "魚草 アメ横プラザ", area: "上野駅・アメ横", genres: ["海鮮","立ち飲み"], bero: 1, rating: 5,
+    plan: "日替わり刺盛り＋ビールのセット 1,000円",
+    note: "アメ横プラザの中にある鮮魚店の立ち飲み。タラバガニや岩ガキも千円メニューがある。閉店が早いので前半向け。",
+    warn: "",
+    hours: "12:00〜19:30（L.O.）・第2水曜休", open: 720, close: 1170, conf: "a" },
+  { name: "もつ焼 煮込み ヤリキ 一揆", q: "ヤリキ 一揆 上野", area: "上野駅・アメ横", genres: ["もつ・煮込み","大衆酒場"], bero: 1, rating: 4,
+    plan: "せんべろセット 1,000円（2杯＋おつまみ）",
+    note: "京成上野駅から徒歩2分。せんべろセットがあるのは心強い。開店は夕方から。",
+    warn: "セット情報は1サイトのみ",
+    hours: "17:00〜23:30", open: 1020, close: 1410, conf: "c" },
+  { name: "立飲み たきおか", q: "立飲み たきおか 上野", area: "上野駅・アメ横", genres: ["立ち飲み","もつ・煮込み","海鮮"], bero: 2, rating: 5,
+    plan: "酎ハイ 310円 ＋ 煮込み 200円 ＋ マグロ刺し 240円 ＝ <b>750円</b>",
+    note: "朝7時から開く老舗。つまみは160〜300円台。キャッシュオンで会計が分かりやすい。上野の千ベロの代表。",
+    warn: "",
+    hours: "07:00〜23:30", open: 420, close: 1410, conf: "a" },
+  { name: "立飲みカドクラ", q: "立飲みカドクラ 上野", area: "上野駅・アメ横", genres: ["立ち飲み","揚げ物"], bero: 2, rating: 5,
+    plan: "酎ハイ 250円 ＋ ハムカツ 350円 ＋ もつ焼き 150円 ＝ <b>750円</b>",
+    note: "上野駅から徒歩1分。焼肉店の直営で、名物はハムカツ。回転が速く、混んでいてもすぐ空くことが多い。",
+    warn: "",
+    hours: "11:00〜22:00（情報が分かれる）", open: 660, close: 1320, conf: "b" },
+  { name: "肉の大山 上野店", q: "肉の大山 上野店", area: "上野駅・アメ横", genres: ["揚げ物","大衆酒場"], bero: 2, rating: 4,
+    plan: "中生 590円 ＋ メンチ 143円 ＋ コロッケ 77円 ＝ <b>810円</b>",
+    note: "精肉店の酒場。メンチやコロッケが安く、店先のカウンターで気軽に飲める。",
+    warn: "生ビール半額のハッピーアワーは平日のみ",
+    hours: "11:00〜23:00（L.O. 22:00）", open: 660, close: 1380, conf: "a" },
+  { name: "もつ焼き おとんば 上野店", q: "もつ焼き おとんば 上野店", area: "上野駅・アメ横", genres: ["もつ・煮込み","焼き鳥・串"], bero: 2, rating: 5,
+    plan: "サワー 300円 ＋ もつ焼き 90円×3 ＋ キャベツ 180円 ＝ <b>750円</b>",
+    note: "もつ焼きが1本90円から。60席あり、4人でも入りやすい。",
+    warn: "",
+    hours: "12:00〜22:00（料理L.O. 21:00）", open: 720, close: 1320, conf: "b" },
+  { name: "ほていちゃん 上野本店", q: "ほていちゃん 上野本店", area: "上野駅・アメ横", genres: ["大衆酒場","立ち飲み"], bero: 2, rating: 4,
+    plan: "生ビール 280円 ＋ 酎ハイ 290円 ＋ 煮込み 250円 ＝ <b>820円</b>",
+    note: "昼から開いている大衆酒場。カウンターや立ち席は割引になる店舗もある（2016年の情報）。",
+    warn: "",
+    hours: "11:00〜23:00", open: 660, close: 1380, conf: "b" },
+  { name: "もつ焼 大統領 支店", q: "もつ焼き 大統領 支店 上野", area: "上野駅・アメ横", genres: ["もつ・煮込み","大衆酒場"], bero: 2, rating: 4,
+    plan: "ホッピーセット 400円 ＋ もつ焼き盛合せ5串 450円 ＝ <b>850円</b>",
+    note: "朝10時から飲める老舗。名物は馬モツ煮込み。",
+    warn: "",
+    hours: "10:00〜23:30", open: 600, close: 1410, conf: "b" },
+  { name: "もつ焼 大統領 本店", q: "もつ焼 大統領 本店 上野", area: "上野駅・アメ横", genres: ["もつ・煮込み"], bero: 2, rating: 3,
+    plan: "二級酒 262円×2 ＋ 馬モツ煮込み 420円 ＝ <b>944円</b>",
+    note: "支店と同じく朝から営業。支店が混んでいたらこちらへ。",
+    warn: "",
+    hours: "10:00〜24:00", open: 600, close: 1440, conf: "c" },
+  { name: "やきとん大王 上野店", q: "やきとん大王 上野店", area: "上野駅・アメ横", genres: ["もつ・煮込み","焼き鳥・串"], bero: 2, rating: 3,
+    plan: "串は1本50〜100円台 → 1〜2杯＋串数本で千円以内の見込み",
+    note: "串がとにかく安い。90分の飲み放題もあるが、ベロ10では単品で。",
+    warn: "ドリンク価格は未確認",
+    hours: "営業時間は未確認", open: null, close: null, conf: "c" },
+  { name: "立ち飲み 洒落者", q: "立ち飲み 洒落者 上野", area: "上野駅・アメ横", genres: ["立ち飲み","焼き鳥・串"], bero: 2, rating: 3,
+    plan: "焼き鳥 100円・つくね 100円 → 1〜2杯＋串3本で千円以内の見込み",
+    note: "焼き鳥が1本100円の立ち飲み。上野駅から徒歩5分。",
+    warn: "ドリンク価格と場所は地図で確認を",
+    hours: "15:00〜22:00", open: 900, close: 1320, conf: "c" },
+  { name: "もつ焼 でん アメ横店", q: "もつ焼 でん アメ横店", area: "上野駅・アメ横", genres: ["もつ・煮込み","焼き鳥・串"], bero: 2, rating: 3,
+    plan: "レモンサワー 300円 ＋ もつ焼き 130円×3 ＝ <b>690円</b>",
+    note: "もつ焼きの店。2杯目を足しても千円前後。",
+    warn: "閉店時刻が20:30と23:00で情報が分かれる。早めに行くのが安全",
+    hours: "15:00頃〜（閉店は20:30か23:00）", open: null, close: null, conf: "c" },
+  { name: "やきとり 上野文楽", q: "やきとり 上野文楽", area: "上野駅・アメ横", genres: ["焼き鳥・串"], bero: 3, rating: 3,
+    plan: "生ビール 450円 ＋ 特選焼き鳥2本 320円 ＝ <b>770円</b>（2杯目は厳しい）",
+    note: "JR高架下の焼き鳥屋。焼き鳥は2本から注文。",
+    warn: "",
+    hours: "14:00〜22:00（情報が分かれる）", open: 840, close: 1320, conf: "c" },
+  { name: "串揚げ じゅらく 上野店", q: "串揚げ じゅらく 上野店", area: "上野駅・アメ横", genres: ["揚げ物"], bero: 3, rating: 2,
+    plan: "串揚げ 1本110円前後 → 1杯＋串数本の見込み",
+    note: "不忍口近くの高架下。串揚げ気分のときに。",
+    warn: "ドリンク価格・営業時間は未確認",
+    hours: "営業時間は未確認", open: null, close: null, conf: "c" },
+  { name: "地魚屋台 浜ちゃん 上野店", q: "地魚屋台 浜ちゃん 上野店", area: "上野駅・アメ横", genres: ["海鮮","揚げ物"], bero: 4, rating: 3,
+    plan: "予算表示は2,000〜2,999円 → 千円なら1杯＋天ぷら1〜2品",
+    note: "天ぷらは伝票で頼むスタイル。刺身の盛合せもある。",
+    warn: "",
+    hours: "11:30〜23:00（料理L.O. 22:00）", open: 690, close: 1380, conf: "c" },
+  { name: "沼津港 海将 上野1号店", q: "沼津港 海将 上野1号店", area: "上野駅・アメ横", genres: ["海鮮"], bero: 4, rating: 2,
+    plan: "セルフ飲み放題＋料理は1人2品以上 → 千円を超えやすい",
+    note: "海鮮のつまみは330円から。長居するなら向いているが、ベロ10の1軒には不向き。",
+    warn: "",
+    hours: "営業時間は未確認", open: null, close: null, conf: "c" },
+
+  { name: "味の笛 本店", q: "味の笛 本店 御徒町", area: "御徒町", genres: ["立ち飲み","海鮮"], bero: 2, rating: 5,
+    plan: "酎ハイ 200円 ＋ 地酒 350円 ＋ 刺身2点盛り 400円 ＝ <b>950円</b>",
+    note: "つまみを自分で取ってレジで払うセルフ式。1階が立ち飲み、2階はテーブル。新潟の地酒が安い。",
+    warn: "",
+    hours: "15:00〜22:00（L.O. 21:45）・日曜休", open: 900, close: 1320, conf: "a" },
+  { name: "もつ焼 煮込み ヤリキ 上野総本店", q: "ヤリキ 上野総本店", area: "御徒町", genres: ["もつ・煮込み","大衆酒場"], bero: 2, rating: 4,
+    plan: "15〜19時は角ハイボール 100円 → 2杯 200円＋煮込みや串で千円以内",
+    note: "やわらかい串焼きと濃厚な牛モツ煮込み。上野御徒町駅から徒歩3分。",
+    warn: "100円ハイボールは「クシヤキ酒場 ヤリキ」名義の情報。同じ店か店頭で確認を",
+    hours: "15:00〜24:00（L.O. 23:00）", open: 900, close: 1440, conf: "a" },
+  { name: "沼津港 サンパチ酒場 御徒町店", q: "沼津港 サンパチ酒場 御徒町店", area: "御徒町", genres: ["海鮮"], bero: 2, rating: 4,
+    plan: "生ビール 380円 ＋ 刺身盛り 380円 ＝ <b>760円</b>",
+    note: "御徒町駅から徒歩1分。千円で海鮮を食べたいならここ。",
+    warn: "配布画像の「上野1号店」とは別の店舗",
+    hours: "11:30〜23:00", open: 690, close: 1380, conf: "c" },
+  { name: "やきとん まるわ", q: "やきとん まるわ 御徒町", area: "御徒町", genres: ["もつ・煮込み","焼き鳥・串","大衆酒場"], bero: 2, rating: 4,
+    plan: "レバー 109円 → 1〜2杯＋串3〜4本で千円以内の見込み",
+    note: "御徒町北口のすぐ前。串焼きは20種類以上で、約120席あり大人数でも入りやすい。",
+    warn: "ドリンク価格は未確認",
+    hours: "昼から営業（時間は未確認）", open: null, close: null, conf: "c" },
+  { name: "一軒め酒場 御徒町アメ横店", q: "一軒め酒場 御徒町アメ横店", area: "御徒町", genres: ["大衆酒場"], bero: 2, rating: 3,
+    plan: "男梅サワー 205円 → 2杯＋1品で千円以内の見込み",
+    note: "お通し代がないチェーンの大衆酒場。",
+    warn: "「上野アメ横店」は閉店の情報あり。こちらの店舗が営業中かは要確認",
+    hours: "営業時間は未確認", open: null, close: null, conf: "c" },
+  { name: "立呑み 晩杯屋 御徒町店", q: "立呑み 晩杯屋 御徒町", area: "御徒町", genres: ["立ち飲み"], bero: 3, rating: 4,
+    plan: "口コミでは生ビール4杯＋つまみで約3,000円 → 千円なら1〜2杯＋1品",
+    note: "朝から開いている立ち飲みのチェーン。",
+    warn: "具体的な価格は未確認",
+    hours: "09:00〜23:00", open: 540, close: 1380, conf: "c" },
+  { name: "酒無量", q: "酒無量 御徒町", area: "御徒町", genres: ["海鮮","焼き鳥・串","大衆酒場"], bero: 4, rating: 2,
+    plan: "平均予算2,500円 → 千円なら1杯＋1品",
+    note: "海鮮焼きや串焼きを屋台気分で。60席の2号店もあり、人数が多いときに。",
+    warn: "",
+    hours: "11:00〜24:00", open: 660, close: 1440, conf: "a" },
+  { name: "日本酒原価酒場 元祖わら屋 上野御徒町店", q: "日本酒原価酒場 元祖わら屋 上野御徒町店", area: "御徒町", genres: ["日本酒"], bero: 4, rating: 2,
+    plan: "チャージ 500円 ＋ 日本酒 200円〜 → 千円だと2杯で終わり",
+    note: "日本酒が原価で飲める。日本酒好きがいる組の1軒に。",
+    warn: "",
+    hours: "16:00〜23:00", open: 960, close: 1380, conf: "c" },
+
+  { name: "街かど酒場 さんたろう 上野店", q: "街かど酒場 さんたろう 上野店", area: "上野駅 浅草口", genres: ["大衆酒場","立ち飲み"], bero: 2, rating: 3,
+    plan: "赤星大瓶 484円 ＋ つまみ2品 → 千円前後",
+    note: "ほていちゃん系列。立ち席は7〜8人分で、座れる席が多い。",
+    warn: "アメ横側とは駅の反対側。移動に時間がかかる",
+    hours: "13:00〜23:00", open: 780, close: 1380, conf: "c" },
+  { name: "ほていちゃん 上野浅草口店", q: "ほていちゃん 上野 浅草口", area: "上野駅 浅草口", genres: ["大衆酒場"], bero: 2, rating: 2,
+    plan: "本店と同じ価格帯（生280円・煮込み250円）なら千円以内",
+    note: "さんたろうと近いので、浅草口で2軒続けて回れる。",
+    warn: "開店時刻が15時と13時で情報が分かれる。価格も古い情報",
+    hours: "15:00頃〜（閉店は未確認）", open: null, close: null, conf: "c" },
+
+  { name: "ささのや", q: "ささのや 鶯谷", area: "鶯谷", genres: ["焼き鳥・串","立ち飲み"], bero: 2, rating: 4,
+    plan: "レモンサワー 350円 ＋ 串 100円×5 ＝ <b>850円</b>",
+    note: "鶯谷駅から徒歩2分の屋台風の角打ち。串は1本100円前後。",
+    warn: "上野駅から歩くと10分ほど。日曜・祝日は休み",
+    hours: "15:00〜23:30（L.O. 23:00）", open: 900, close: 1410, conf: "a" },
+  { name: "信濃路 鶯谷店", q: "信濃路 鶯谷店", area: "鶯谷", genres: ["大衆酒場","揚げ物"], bero: 2, rating: 4,
+    plan: "ハムカツ 450円 ＋ 酒1〜2杯 → 予算1,000円",
+    note: "鶯谷駅北口すぐの24時間営業の大衆食堂兼酒場。カレーも名物。",
+    warn: "価格は2022年の情報",
+    hours: "24時間営業", open: 0, close: 1440, conf: "b" },
+  { name: "かぶら屋 鶯谷店", q: "かぶら屋 鶯谷店", area: "鶯谷", genres: ["もつ・煮込み"], bero: 3, rating: 3,
+    plan: "黒おでん・やきとんの店。価格は未確認",
+    note: "静岡風の黒おでんが名物。鶯谷まで足を延ばすなら、ささのやと合わせて。",
+    warn: "価格・営業時間は未確認",
+    hours: "営業時間は未確認", open: null, close: null, conf: "c" }
+];
+
+var AREAS = ["上野駅・アメ横","御徒町","上野駅 浅草口","鶯谷"];
+var GENRES = ["立ち飲み","もつ・煮込み","焼き鳥・串","揚げ物","海鮮","大衆酒場","日本酒"];
+var BEROS = [[1,"セットあり"],[2,"千円で組める"],[3,"工夫すれば"],[4,"千円超えがち"]];
+var BERO_LABEL = { 1: "セットあり", 2: "千円で組める", 3: "工夫すれば", 4: "千円超えがち" };
+var CONF_LABEL = { a: "情報新しめ", b: "情報が古い", c: "要確認" };
+var state = { area: null, genre: null, bero: null };
+
+function buildChips(id, items, key) {
+  var el = document.getElementById(id);
+  var all = [[null, "すべて"]].concat(items.map(function (x) { return Array.isArray(x) ? x : [x, x]; }));
+  el.innerHTML = all.map(function (p) {
+    return '<button type="button" class="chip" data-key="' + key + '" data-val="' + (p[0] === null ? "" : p[0]) + '" aria-pressed="' + (state[key] === p[0]) + '">' + p[1] + '</button>';
+  }).join("");
+}
+function nowMin() {
+  try {
+    var parts = new Intl.DateTimeFormat("en-GB", { timeZone: "Asia/Tokyo", hour: "2-digit", minute: "2-digit", hour12: false }).formatToParts(new Date());
+    var h = 0, m = 0;
+    parts.forEach(function (p) { if (p.type === "hour") h = parseInt(p.value, 10) % 24; if (p.type === "minute") m = parseInt(p.value, 10); });
+    return h * 60 + m;
+  } catch (e) { var d = new Date(); return d.getHours() * 60 + d.getMinutes(); }
+}
+function statusOf(s, now) {
+  if (s.open === null) return { cls: "unk", text: "営業は店で確認", isOpen: null };
+  if (s.open === 0 && s.close === 1440) return { cls: "open", text: "営業中", isOpen: true };
+  if (now >= s.open && now < s.close) {
+    if (s.close - now <= 60) return { cls: "soon", text: "まもなく閉店", isOpen: true };
+    return { cls: "open", text: "営業中", isOpen: true };
+  }
+  return { cls: "closed", text: now < s.open ? "開店前" : "閉店", isOpen: false };
+}
+function stars(n) { var s = ""; for (var i = 0; i < 5; i++) s += i < n ? "★" : "☆"; return s; }
+
+function render() {
+  var now = nowMin();
+  var onlyOpen = document.getElementById("f-open").checked;
+  var sort = document.getElementById("f-sort").value;
+  var list = SHOPS.map(function (s, i) { return { s: s, i: i, st: statusOf(s, now) }; }).filter(function (x) {
+    var s = x.s;
+    if (state.area !== null && s.area !== state.area) return false;
+    if (state.genre !== null && s.genres.indexOf(state.genre) < 0) return false;
+    if (state.bero !== null && s.bero !== state.bero) return false;
+    if (onlyOpen && x.st.isOpen === false) return false;
+    return true;
+  });
+  list.sort(function (a, b) {
+    if (sort === "bero" && a.s.bero !== b.s.bero) return a.s.bero - b.s.bero;
+    if (sort === "close") {
+      var ca = a.s.close === null ? 9999 : a.s.close, cb = b.s.close === null ? 9999 : b.s.close;
+      if (ca !== cb) return ca - cb;
+    }
+    if (b.s.rating !== a.s.rating) return b.s.rating - a.s.rating;
+    if (a.s.bero !== b.s.bero) return a.s.bero - b.s.bero;
+    return a.i - b.i;
+  });
+  document.getElementById("count").innerHTML = "該当 <b>" + list.length + "</b> 軒　（全" + SHOPS.length + "軒）";
+  var out = document.getElementById("list");
+  if (!list.length) {
+    out.innerHTML = '<div class="empty">条件に合う店がありません。<br><button type="button" class="reset" id="reset">条件をリセット</button></div>';
+    return;
+  }
+  out.innerHTML = list.map(function (x) {
+    var s = x.s;
+    var map = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(s.q);
+    return '<article class="shop">' +
+      '<div class="top"><h2 class="name">' + s.name + '</h2>' +
+      '<div class="stars" role="img" aria-label="おすすめ度 5段階中' + s.rating + '"><span class="s">' + stars(s.rating) + '</span><span class="l">おすすめ度</span></div></div>' +
+      '<div class="meta"><span class="bero b' + s.bero + '">' + BERO_LABEL[s.bero] + '</span><span class="tag area">' + s.area + '</span>' +
+      s.genres.map(function (g) { return '<span class="tag">' + g + '</span>'; }).join("") + '</div>' +
+      '<div class="plan">千円の例　' + s.plan + '</div>' +
+      '<p class="note">' + s.note + '</p>' +
+      (s.warn ? '<p class="warnline">⚠ ' + s.warn + '</p>' : '') +
+      '<div class="foot"><span class="hours">土 ' + s.hours + '</span>' +
+      '<span class="conf ' + s.conf + '">' + CONF_LABEL[s.conf] + '</span>' +
+      '<span class="status ' + x.st.cls + '">' + x.st.text + '</span>' +
+      '<a class="map" href="' + map + '" target="_blank" rel="noopener">地図で見る</a></div>' +
+      '</article>';
+  }).join("");
+}
+function refreshChips() { buildChips("f-area", AREAS, "area"); buildChips("f-bero", BEROS, "bero"); buildChips("f-genre", GENRES, "genre"); }
+
+document.addEventListener("click", function (e) {
+  var t = e.target;
+  if (t && t.id === "reset") { state = { area: null, genre: null, bero: null }; document.getElementById("f-open").checked = false; refreshChips(); render(); return; }
+  var b = t && t.closest ? t.closest(".chip") : null;
+  if (!b) return;
+  var key = b.getAttribute("data-key"), v = b.getAttribute("data-val");
+  state[key] = v === "" ? null : (key === "bero" ? parseInt(v, 10) : v);
+  refreshChips(); render();
+});
+document.getElementById("f-open").addEventListener("change", render);
+document.getElementById("f-sort").addEventListener("change", render);
+refreshChips(); render();
+setInterval(render, 60000);
+</script>
+</body>
+</html>
